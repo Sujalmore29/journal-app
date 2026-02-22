@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: MyJournalApp
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/myjournalapp
+      auto-index-creation: true
+
+
+  redis:
+    host: localhost
+    port: 6379
+
+  mail:
+    host: smtp.gmail.com #or IP Address of the SMTP server you want to use for sending emails.
+    port: 587 #this is the port number for the SMTP server, which is used for sending emails.(this is default-unencrypted(587) otherwise 25 for SSL)
+    username: moresujal2912@gmail.com
+    password: ${MAIL_PASSWORD} #this is an environment variable for the email password, which should be set in your system or in a .env file.
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls: #what is starttls? It is a way to take an existing insecure connection and upgrade it to a secure connection using SSL/TLS.(To check whatever exchange happens is secure or not)
+            enable: true
+
+server:
+    port: 8080
+
+weather:
+    api:
+        key: ${WEATHER_API_KEY} #This is an environment variable for the weather API key, which should be set in your system or in a .env file.
