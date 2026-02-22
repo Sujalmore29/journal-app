@@ -224,7 +224,7 @@ Make sure you have installed:
 <h3>🔧 Backend Setup (Spring Boot)</h3>
 
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/journal-app.git
+git clone https://github.com/Sujalmore29/journal-app.git
 
 # Navigate to backend folder
 cd myjournalapp
