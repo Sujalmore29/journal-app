@@ -5,8 +5,8 @@
 ---
 <h2>📌 Overview</h2>
 
-Journal App is a production-style full stack web application that allows users to securely create and manage personal journal entries.
-The system includes authentication, role-based access control, caching optimization, and an admin management panel.
+### Journal App is a production-style full stack web application that allows users to securely create and manage personal journal entries.
+### The system includes authentication, role-based access control, caching optimization, and an admin management panel.
 
 ---
 <h2>🛠 Tech Stack</h2>
@@ -223,31 +223,31 @@ Make sure you have installed:
 
 <h3>🔧 Backend Setup (Spring Boot)</h3>
 
-# Clone the repository
-git clone https://github.com/Sujalmore29/journal-app.git
+### Clone the repository
+- git clone https://github.com/Sujalmore29/journal-app.git
 
-# Navigate to backend folder
-cd myjournalapp
+### Navigate to backend folder
+- cd myjournalapp
 
-# Run Spring Boot application
-mvn spring-boot:run
+### Run Spring Boot application
+- mvn spring-boot:run
 
-# Backend will start on:
-http://localhost:8080
+### Backend will start on:
+- http://localhost:8080
 
 <h3>🎨 Frontend Setup (React)</h3>
 
-# Navigate to frontend folder
-cd ../frontend
+### Navigate to frontend folder
+- cd ../frontend
 
-# Install dependencies
-npm install
+### Install dependencies
+- npm install
 
-# Start development server
-npm run dev
+### Start development server
+- npm run dev
 
-# Frontend will run on:
-http://localhost:5173
+### Frontend will run on:
+- http://localhost:5173
 
 ---
 <h2>🧠 Key Learnings</h2>
