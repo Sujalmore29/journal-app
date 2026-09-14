@@ -2,6 +2,7 @@ package com.msd.myjournalapp.Entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.lang.NonNull;
+import com.msd.myjournalapp.Enums.Sentiment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class JournalEntry {
     private String title;
 
     private String content;
+    private Sentiment sentiment;
     private LocalDateTime date;
 
     @JsonProperty("id")

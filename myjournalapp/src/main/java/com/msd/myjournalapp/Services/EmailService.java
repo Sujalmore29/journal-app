@@ -1,5 +1,6 @@
 package com.msd.myjournalapp.Services;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -8,9 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class EmailService {
-    @Autowired
-    private JavaMailSender javaMailSender;
+
+    private final JavaMailSender javaMailSender;
 
     public void sendMail(String to,String subject,String body){
         try{
@@ -20,7 +22,7 @@ public class EmailService {
             mail.setText(body);
             javaMailSender.send(mail);
         }catch (Exception e){
-            System.out.println("Exception occured while sending mail" + e);
+            log.error("Exception occurred while sending mail", e);
         }
     }
 }

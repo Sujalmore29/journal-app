@@ -3,6 +3,7 @@ package com.msd.myjournalapp.Cache;
 import com.msd.myjournalapp.Entities.ConfigJournalAppEntities;
 import com.msd.myjournalapp.Repositories.ConfigJournalAppRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,13 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class AppCache {
-    public enum keys{
-        WEATHER_API;
-    }
 
-    @Autowired
-    private ConfigJournalAppRepository configJournalAppRepository;
+
+    private final ConfigJournalAppRepository configJournalAppRepository;
     public Map<String,String> appCache;
 
     @PostConstruct

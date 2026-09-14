@@ -4,6 +4,7 @@ import com.msd.myjournalapp.Entities.JournalEntry;
 import com.msd.myjournalapp.Entities.User;
 import com.msd.myjournalapp.Services.JournalEntryServices;
 import com.msd.myjournalapp.Services.UserServices;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,12 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/journal")
+@RequiredArgsConstructor
 public class JournalEntryController {
 
-    @Autowired
-    public JournalEntryServices journalEntryServices;
 
-    @Autowired
-    public UserServices userServices;
+    public final JournalEntryServices journalEntryServices;
+    public final UserServices userServices;
     @GetMapping
     public ResponseEntity<?> getAllJournalEntriesOfUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -87,7 +87,7 @@ public class JournalEntryController {
                 JournalEntry old = oldEntry.get();
                 old.setTitle(journalEntry.getTitle() != null && !journalEntry.getTitle().equals("") ? journalEntry.getTitle() : old.getTitle());
                 old.setContent(journalEntry.getContent() != null && !journalEntry.getContent().equals("") ? journalEntry.getContent() : old.getContent());
-                journalEntryServices.saveNewEntry(old);
+                journalEntryServices.saveEntry(old,username);
                 return new ResponseEntity<>(old,HttpStatus.OK);
             }
         }

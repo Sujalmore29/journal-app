@@ -3,6 +3,7 @@ package com.msd.myjournalapp.Controllers;
 import com.msd.myjournalapp.Cache.AppCache;
 import com.msd.myjournalapp.Entities.User;
 import com.msd.myjournalapp.Services.UserServices;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private UserServices userServices;
+    private final UserServices userServices;
 
-    @Autowired
-    private AppCache appCache;
+    private final AppCache appCache;
 
     @GetMapping("/getAllUser")
     public ResponseEntity<?> getAllUsers(){

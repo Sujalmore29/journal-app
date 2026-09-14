@@ -27,49 +27,14 @@ public class User {
     @NonNull
     private String password;
 
+    private String email;
+
     private List<String> roles = new ArrayList<>();
+
+    private String city;
+
+    private boolean sentimentAnalysis = false;
+
     @DBRef
     private List<JournalEntry> journalEntries = new ArrayList<>();
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
-    @NonNull
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(@NonNull String username) {
-        this.username = username;
-    }
-
-    @NonNull
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@NonNull String password) {
-        this.password = password;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public List<JournalEntry> getJournalEntries() {
-        return journalEntries;
-    }
-
-    public void setJournalEntries(List<JournalEntry> journalEntries) {
-        this.journalEntries = journalEntries;
-    }
 }

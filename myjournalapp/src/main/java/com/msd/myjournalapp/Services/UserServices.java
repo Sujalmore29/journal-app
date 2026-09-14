@@ -2,40 +2,47 @@ package com.msd.myjournalapp.Services;
 
 import com.msd.myjournalapp.Entities.User;
 import com.msd.myjournalapp.Repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class UserServices {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    @Autowired
-    public UserRepository userRepository;
-    public boolean saveUser(User user){
+    private final UserRepository userRepository;
+    public boolean saveUserAfterSignUp(User user){
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRoles(List.of("USER"));
             userRepository.save(user);
             return true;
         }catch(Exception e){
-            System.out.println("Error occured" + e);
+            log.error("Error occurred", e);
             return false;
         }
+    }
+
+    public void saveUser(User user){
+        userRepository.save(user);
     }
 
     public boolean saveUserAfterJournalOperation(User user){
         userRepository.save(user);
         return true;
+    }
+
+    public boolean getSentimentAnalysis(String username){
+        User user = userRepository.getUserByUsername(username);
+        return user.isSentimentAnalysis();
     }
 
     public void saveAdmin(String username){
@@ -52,7 +59,7 @@ public class UserServices {
            }
 
        }catch (Exception e){
-           System.out.println("Error Occured While Promoting User" + e);
+           log.error("Error Occurred While Promoting User", e);
        }
     }
 

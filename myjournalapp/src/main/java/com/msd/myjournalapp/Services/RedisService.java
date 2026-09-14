@@ -1,6 +1,8 @@
 package com.msd.myjournalapp.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -8,10 +10,11 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@RequiredArgsConstructor
+@Slf4j
 public class RedisService {
 
-    @Autowired
-    public RedisTemplate redisTemplate;
+    public final RedisTemplate redisTemplate;
 
     public <T> T get(String key,Class<T> entityClass){
         try{
@@ -19,7 +22,7 @@ public class RedisService {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(o.toString(),entityClass);
         }catch (Exception e){
-            System.out.println("Error occured" + e);
+            log.error("Error occurred", e);
             return null;
         }
     }
@@ -30,7 +33,7 @@ public class RedisService {
             String s = mapper.writeValueAsString(o);
             redisTemplate.opsForValue().set(key,s,ttl, TimeUnit.SECONDS);
         }catch (Exception e){
-            System.out.println("Error occured" + e);
+           log.error("Error occurred", e);
         }
     }
 }
