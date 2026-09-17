@@ -3,17 +3,22 @@ import { getAllEntries } from '../api/JournalApi';
 import Navbar from '../components/Navbar';
 import EntryCard from '../components/EntryCard';
 import { getUserGreeting } from '../api/userApi';
+import { isLoggedIn } from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Dashboard = () => {
     const [entries, setentries] = useState([]);
     const [greeting, setgreeting] = useState("");
 
+
     useEffect(() => {
         getUserGreeting().then(res => setgreeting(res.data))
-        .catch(err => console.error(err));
+        .catch(err => toast.error("Failed to fetch user greeting."));
     }, []);
+
     useEffect(() => {
-        getAllEntries().then(res => setentries(Array.isArray(res.data) ? res.data : [])).catch(err => console.error(err));
+        getAllEntries().then(res => setentries(Array.isArray(res.data) ? res.data : [])).catch(err => toast.error("Failed to fetch journal entries."));
     }, []);
 
     return(

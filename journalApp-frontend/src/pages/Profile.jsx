@@ -1,10 +1,12 @@
 import React, { use, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { deleteUser, getProfile, getUserGreeting, updateUser } from '../api/userApi';
+import { deleteUser, getProfile, getUserGreeting, toggleWeeklySentiment, updateUser } from '../api/userApi';
 import Navbar from '../components/Navbar';
 import toast from 'react-hot-toast';
 import ProfileCalendar from '../components/ProfileCalendar';
 import { getAllEntries } from '../api/JournalApi';
+import WeeklySentiment from '../components/WeeklySentiment';
+import { motion } from 'framer-motion';
 
 const Profile = () => {
 
@@ -22,9 +24,13 @@ const Profile = () => {
     }, []);
 
     useEffect(() => {
-        getProfile().then(res => setUser(res.data)).catch(err => console.error(err));
+        getProfile()
+            .then(res => setUser(res.data))
+            .catch(err => console.error(err));
 
-        getAllEntries().then(res =>  setEntries(Array.isArray(res.data) ? res.data : [])).catch(err => console.error(err));
+        getAllEntries()
+            .then(res =>  setEntries(Array.isArray(res.data) ? res.data : []))
+            .catch(err => console.error(err));
     }, []);
 
     const handleUpdate = async () => {
@@ -37,6 +43,20 @@ const Profile = () => {
             toast.error("Update failed. Please try again.");
         }
     };
+
+    const handleWeeklySentimentToggle = async () => {
+        try{
+            const response = await toggleWeeklySentiment();
+            console.log("Weekly sentiment toggle response:", response.data);
+            setUser(prev => ({
+                ...prev,
+                WeeklySentiment: !prev.WeeklySentiment
+            }));
+            toast.success("Weekly sentiment updated");
+        } catch(err){
+            toast.error("Weekly sentiment toggle failed:",err);
+        }
+    }
 
     const handleDelete = async () => {
         const confirm = window.confirm("Are you sure you want to delete your account?");
@@ -92,12 +112,42 @@ const Profile = () => {
                     <div className='bg-white rounded-2xl shadow-md p-5 flex flex-col justify-center items-center gap-2'>
                         <button onClick={() => {
                             toast.success("Logged out");
+                            localStorage.removeItem("token");
                             navigate("/login");
                         }}
                         className='bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-black'>
                             Logout
                         </button>
                     </div>
+                    <div className='bg-white rounded-2xl shadow-md p-5 flex flex-col  justify-center items-center gap-2'>
+                        <h3 className='text-lg font-semibold text-gray-700'>Weekly Sentiment</h3>
+                        <div className='flex items-center gap-3'>
+                            <span className='text-sm text-gray-500'>{user?.WeeklySentiment ? "ON" : "OFF"}</span>
+
+                            <button onClick={handleWeeklySentimentToggle}
+                            className={`relative w-16 h-8 rounded-full transition-colors duration-300 ${user?.WeeklySentiment 
+                                ? "bg-indigo-600"
+                                : "bg-gray-300"
+                            }`}>
+                                <motion.div
+                                    animate={{ x: user?.WeeklySentiment ? 32 : 0 }}
+                                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    className='absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow-md'
+                                />
+                            </button>
+                        </div>
+
+                        <p className='text-sm text-gray-500'>
+                            {user?.WeeklySentiment
+                            ? "Weekly emails enabled"
+                            : "Weekly emails disabled"}
+                        </p>
+                    </div>
+                </div>
+                
+                {/* WEEKLY SENTIMENT */}
+                <div className='mt-8'>
+                    <WeeklySentiment entries={entries} />
                 </div>
 
                 {/* CALENDAR */}

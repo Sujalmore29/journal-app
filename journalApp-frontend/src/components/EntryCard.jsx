@@ -3,11 +3,57 @@ import toast from 'react-hot-toast';
 import { FaBook, FaBookOpen, FaEdit, FaTrash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom'
 import { deleteEntryById } from '../api/JournalApi';
+import { motion } from "framer-motion";
+
+const SENTIMENT_CONFIG = {
+    HAPPY: {
+        emoji: "😊",
+        label: "HAPPY",
+    },
+    SAD: {
+        emoji: "😢",
+        label: "SAD",
+    },
+    ANGRY: {
+        emoji: "😡",
+        label: "ANGRY",
+    },
+    EXCITED: {
+        emoji: "🤩",
+        label: "EXCITED",
+    },
+    CALM: {
+        emoji: "😌",
+        label: "CALM",
+    },
+    ANXIOUS: {
+        emoji: "😰",
+        label: "ANXIOUS",
+    },
+    MOTIVATED: {
+        emoji: "💪",
+        label: "MOTIVATED",
+    },
+    TIRED: {
+        emoji: "😴",
+        label: "TIRED",
+    },
+    GRATEFUL: {
+        emoji: "🙏",
+        label: "GRATEFUL",
+    },
+    STRESSED: {
+        emoji: "😫",
+        label: "STRESSED",
+    },
+};
 
 const EntryCard = ({ entry }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
+  const sentiment = entry.sentiment ? SENTIMENT_CONFIG[String(entry.sentiment).toUpperCase()] : null;
+  
   const preview = entry.content.length > 150 ? entry.content.substring(0,150) + "..." : entry.content;
 
   const handleDelete = async () => {
@@ -31,10 +77,26 @@ const EntryCard = ({ entry }) => {
 
         {/* BODY */}
         <div className='p-4'>
-          <h3 className='font-bold text-lg mb-2 text-gray-800'>
+          <div className='flex items-start justify-between gap-3'>
+            <h3 className='font-bold text-lg mb-2 text-gray-800'>
             {entry.title}
           </h3>
 
+        {/* SENTIMENT */}
+          {sentiment && (
+            <motion.div 
+              initial={{ opacity: 0,scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold"
+            title={`Sentiment: ${sentiment.label}`}>
+    
+              <span>{sentiment.emoji}</span>
+              <span className='text-sm font-medium text-gray-600'>{sentiment.label}</span>
+              
+            </motion.div>
+          )}
+          </div>
           <p className='text-gray-600 text-sm whitespace-pre-line'>{preview}</p>
         </div>
 

@@ -20,3 +20,5 @@ export const updateUser = (data) => API.put("",data);
 export const deleteUser = () => API.delete("");
 
 export const getProfile = () => API.get("/get-user");
+
+export const toggleWeeklySentiment = () =>  API.put("/weekly-sentiment");

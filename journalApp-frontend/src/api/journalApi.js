@@ -17,9 +17,9 @@ API.interceptors.request.use((req) => {
 API.interceptors.response.use(
     (res) => res,
     (error) => {
-        if(error.response && error.response.status === 401){
+        if(error.response || error.response.status === 401 || error.response.status === 500){
             localStorage.removeItem("token");
-            toast.error("Sesssion expired. Please login again.");
+            toast.error("Session expired. Please login again.");
 
             setTimeout(() => {
                 window.location.href = "/login";
