@@ -367,77 +367,70 @@ JournalApp/
 
 ## 📸 Application Screenshots
 
-> Add the following screenshots to `journalApp-frontend/public/screenshots/`.
-
 ### 🔐 Login Page
 
-```html
+
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/login.jpg" width="900"/>
 </p>
-```
+
 
 ### 🔐 Register Page
 
-```html
+
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/register.jpg" width="900"/>
 </p>
-```
+
 
 ### 📝 Dashboard
 
-```html
+
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/Dashboard.jpg" width="900"/>
 </p>
-```
+
 
 ### 📓 Add Journal
 
-```html
+
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/AddJournal.jpg" width="900"/>
 </p>
-```
+
 
 ### 🧠 Journal Sentiment
 
-Show the sentiment directly on each journal card.
 
-```html
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/JournalSentiment.jpg" width="900"/>
 </p>
-```
+
 
 ### 👤 Profile & Weekly Sentiment
 
-Show the weekly sentiment toggle and weekly sentiment summary.
 
-```html
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/WeeklySentiment.jpg" width="900"/>
 </p>
-```
+
 
 ### 🧑‍💼 Admin Panel
 
-```html
+
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/AdminPanel.jpg" width="900"/>
 </p>
-```
+
 
 ### 📧 Weekly Email
 
-If you want to showcase the email feature, add a screenshot of the received weekly report:
 
-```html
+
 <p align="center">
   <img src="/journalApp-frontend/public/screenshots/WeeklyEmail.jpg" width="900"/>
 </p>
-```
+
 
 ---
 
